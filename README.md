@@ -3,11 +3,28 @@ Supermarket app with Orders, Moderator Screen and Admin Screen and whole other f
 
 <p align="center">
     <a href="https://supermarketil.web.app/" target="_blank">
+        <img src="https://supermarketil.web.app/assets/images/fruits.svg" width="50" height="50" />
+        <br>
         Live Demo Web - https://Supermarketil.web.app
     </a>
 </p>
 
+
 ## Screenshots:
+<div align="center">
+    <p align="center"><strong>Home Screen</strong></p>
+        <img src="https://github.com/Edenik/Supermarket-Angular-App/blob/main/media/main%20screen.png?raw=true" />
+</div>
+
+<div align="center">
+    <p align="center"><strong>Moderator Screen</strong></p>
+        <img src="https://github.com/Edenik/Supermarket-Angular-App/blob/main/media/moderator%20screen.png?raw=true"  />
+</div>
+
+<div align="center">
+    <p align="center"><strong>Admin Screen</strong></p>
+        <img src="https://github.com/Edenik/Supermarket-Angular-App/blob/main/media/admin%20screen.png?raw=true"  />
+</div>
 
 
 ## Development server
