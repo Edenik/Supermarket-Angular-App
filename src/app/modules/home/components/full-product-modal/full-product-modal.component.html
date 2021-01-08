@@ -1,0 +1,202 @@
+<div class="modal-content">
+    <div class="modal-body" style="padding:10px;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <h1>×</h1>
+        </button>
+
+        <div class="text-center">
+            <img src="{{product.photoURL}}" style="object-fit:contain; width: 250px; height: 250px;">
+        </div>
+
+
+        <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="product.hasNutritialMark || product.inSale">
+            <img class="nutritialMark z-depth-3" style="border-radius: 50%;" *ngIf="product.nutritialSugar"
+                src="./assets/images/sugar.svg">
+            <img class="nutritialMark z-depth-3" style="border-radius: 50%;" *ngIf="product.nutritialFat"
+                src="./assets/images/fat.svg">
+            <img class="nutritialMark z-depth-3" style="border-radius: 50%;" *ngIf="product.nutritialSodium"
+                src="./assets/images/salt.svg">
+            <img class="nutritialMark z-depth-3" style="border-radius: 50%;" *ngIf="product.hasNutritialMark"
+                src="./assets/images/negative.svg">
+            <img class="nutritialMark z-depth-3" style="border-radius: 50%;" *ngIf="product.inSale"
+                src="./assets/images/sale-product.png">
+
+        </div>
+
+
+        <div class="text-right" style="margin-bottom: 10px; padding-right: 10px; font-size: 20px; direction: rtl;">
+            <p style="font-weight: 700;">{{product.productName}}</p>
+            <hr>
+
+            <div fxLayout="row">
+                <p fxFlex="50" style="font-weight: 700;">מותג</p>
+                <p fxFlex="50">{{product.brand}}</p>
+            </div>
+
+            <hr>
+
+
+            <div *ngIf="product.unit=='ml'">
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">כמות</p>
+                    <p fxFlex="50" *ngIf="product.weight<1000">{{product.weight}} מ"ל</p>
+                    <p fxFlex="50" *ngIf="product.weight>=1000">{{product.weight/1000  | number : '1.2-2'}} ליטר</p>
+                </div>
+                <hr>
+
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר</p>
+                    <p fxFlex="50" *ngIf="!product.inSale">
+                        <span>{{product.price |currency:"ILS":"symbol"}}</span>
+                    </p>
+                    <p fxFlex="50" *ngIf="product.inSale">
+                        <span class="pink-text"
+                            style="font-size: larger;">{{product.salePrice |currency:"ILS":"symbol"}}</span>&nbsp;
+                        <span style="text-decoration: line-through;">{{product.price |currency:"ILS":"symbol"}}</span>
+                    </p>
+                </div>
+                <hr>
+
+                <div *ngIf="!product.inSale" fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר ל-100 מ"ל</p>
+                    <p fxFlex="50">{{product.price/product.weight*100 |currency:"ILS":"symbol"}}</p>
+                </div>
+
+                <div *ngIf="product.inSale" fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר ל-100 מ"ל</p>
+                    <p fxFlex="50">
+                        {{product.salePrice/product.weight*100 |currency:"ILS":"symbol"}}</p>
+                </div>
+
+            </div>
+
+            <div *ngIf="product.unit=='gr'">
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">כמות</p>
+                    <p fxFlex="50" *ngIf="product.weight<1000">{{product.weight}} גרם</p>
+                    <p fxFlex="50" *ngIf="product.weight>=1000">{{product.weight/1000  | number : '1.2-2'}} קילו</p>
+                </div>
+                <hr>
+
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר</p>
+                    <p fxFlex="50" *ngIf="!product.inSale">
+                        <span>{{product.price |currency:"ILS":"symbol"}}</span>
+                    </p>
+                    <p fxFlex="50" *ngIf="product.inSale">
+                        <span class="pink-text"
+                            style="font-size: larger;">{{product.salePrice |currency:"ILS":"symbol"}}</span>&nbsp;
+                        <span style="text-decoration: line-through;">{{product.price |currency:"ILS":"symbol"}}</span>
+                    </p>
+                </div>
+                <hr>
+
+                <div *ngIf="!product.inSale" fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר ל-100 גרם</p>
+                    <p fxFlex="50">{{product.price/product.weight*100 |currency:"ILS":"symbol"}}</p>
+                </div>
+
+                <div *ngIf="product.inSale" fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר ל-100 גרם</p>
+                    <p fxFlex="50">
+                        {{product.salePrice/product.weight*100 |currency:"ILS":"symbol"}}</p>
+                </div>
+            </div>
+
+            <div *ngIf="product.unit=='unit'">
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">כמות</p>
+                    <p fxFlex="50" *ngIf="product.weight==1">{{product.weight}} יחידה</p>
+                    <p fxFlex="50" *ngIf="product.weight>1">{{product.weight}} יחידות</p>
+                </div>
+                <hr>
+
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר</p>
+                    <p fxFlex="50" *ngIf="!product.inSale">
+                        <span>{{product.price |currency:"ILS":"symbol"}}</span>
+                    </p>
+                    <p fxFlex="50" *ngIf="product.inSale">
+                        <span class="pink-text"
+                            style="font-size: larger;">{{product.salePrice |currency:"ILS":"symbol"}}</span>&nbsp;
+                        <span style="text-decoration: line-through;">{{product.price |currency:"ILS":"symbol"}}</span>
+                    </p>
+                </div>
+                <hr>
+
+                <div *ngIf="!product.inSale" fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר ליחידה</p>
+                    <p fxFlex="50">{{product.price/product.weight |currency:"ILS":"symbol"}}</p>
+                </div>
+
+                <div *ngIf="product.inSale" fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר ליחידה</p>
+                    <p fxFlex="50"> {{product.salePrice/product.weight |currency:"ILS":"symbol"}}
+                    </p>
+                </div>
+            </div>
+
+            <hr>
+
+
+            <div fxLayout="row" *ngIf="product.inSale">
+                <p fxFlex="50" style="font-weight: 700;">תיאור מבצע</p>
+                <p fxFlex="50" class="pink-text">{{product.saleDescription}}</p>
+            </div>
+
+            <hr *ngIf="product.inSale">
+
+            <div fxLayout="row">
+                <p fxFlex="50" style="font-weight: 700;">מק"ט</p>
+                <p fxFlex="50">{{product.id}}</p>
+            </div>
+
+
+
+            <hr *ngIf="moderator">
+
+            <div fxLayout="row" *ngIf="moderator">
+                <p fxFlex="50" style="font-weight: 700;">תאריך הוספה</p>
+                <p fxFlex="50">{{product.dateAdded |  date:'dd.MM.yy, HH:mm'}}</p>
+            </div>
+
+            <hr *ngIf="moderator && product.dateEdited">
+
+            <div fxLayout="row" *ngIf="moderator && product.dateEdited">
+                <p fxFlex="50" style="font-weight: 700;">תאריך עריכה</p>
+                <p fxFlex="50">{{product.dateEdited |  date:'dd.MM.yy, HH:mm'}}</p>
+            </div>
+
+            <hr *ngIf="moderator">
+
+            <div fxLayout="row" *ngIf="moderator">
+                <p fxFlex="27" style="font-weight: 700;">נוסף על ידי</p>
+                <p fxFlex="73" (click)="openUserInfoModal(product.addedByUID)" class="cursor-pointer">
+                    {{product.addedByUID}}</p>
+            </div>
+
+
+            <hr *ngIf="moderator && product.editedByUID">
+
+            <div fxLayout="row" *ngIf="moderator && product.editedByUID">
+                <p fxFlex="27" style="font-weight: 700;">נערך על ידי</p>
+                <p fxFlex="73" (click)="openUserInfoModal(product.addedByUID)" class="cursor-pointer">
+                    {{product.editedByUID}}</p>
+            </div>
+
+
+        </div>
+
+        <div>
+            <button *ngIf="!moderator" mdbBtn class="waves-light lime accent-3" block="true" mdbWavesEffect
+                style="margin: 0; font-size: 18px;" (click)="addProduct(product)">הוסף מוצר לעגלה&nbsp;<mdb-icon fas
+                    icon="plus" class="text-dark"></mdb-icon>
+            </button>
+            <button *ngIf="moderator" mdbBtn class="waves-light lime accent-3" block="true" mdbWavesEffect
+                style="margin: 0; font-size: 18px;" (click)="closeModal()">סגור&nbsp;<i
+                    class="fas fa-times-circle text-dark"></i>
+            </button>
+
+        </div>
+    </div>
+</div>

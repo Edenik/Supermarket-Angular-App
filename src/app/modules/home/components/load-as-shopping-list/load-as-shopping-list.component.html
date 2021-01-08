@@ -1,0 +1,42 @@
+<!-- /* This Component isn't 100% ready.... */ -->
+
+
+<div class="modal-content">
+    <div class="modal-header lime accent-4" style="height: 70px;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span style="font-size: 35px;">×</span>
+        </button>
+        <h4 class="modal-title text-dark" style="position: absolute; right: 15px;">טען כרשימת קניות</h4>
+    </div>
+
+
+    <div class="modal-body" style="padding-top: 5px; padding-bottom: 5px;">
+        <div class="text-center" style="margin-bottom: 10px;">
+
+            <div fxLayout="row wrap" fxLayoutAlign="end center" class="z-depth-1"
+                style="position: relative; margin-top: 5px;" *ngFor="let order of OrderItemsToShow; let i = index">
+                <div class="text-right">
+                    <p class="details">{{order.product_name}} </p>
+                    <p class="details">כמות: {{order.quantity}} </p>
+                    <p class="details" *ngIf="!order.order_item_discount">
+                        {{order.order_item_price*order.quantity |currency:"ILS":"symbol"}}</p>
+                    <p class="details" *ngIf="order.order_item_discount"> <span
+                            style="text-decoration: line-through;">{{order.order_item_price*order.quantity |currency:"ILS":"symbol"}}</span>
+                        &nbsp;<span class="pink-text"
+                            style="font-size: larger;">{{order.order_item_discount*order.quantity |currency:"ILS":"symbol"}}</span>
+                    </p>
+                </div>
+                <img src="{{order.photoURL}}" alt="" style="height: 75px; width: 75px; margin-left: 15px;"
+                    class="cursor-pointer">
+                <!-- (click)="openFullDetailsProductModal(products[i])"  -->
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer  text-center " style="display: inline;">
+        <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="closeModal()"
+            mdbWavesEffect><i class="fas fa-times-circle"></i>&nbsp;Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
+            (click)="addProductsToCart()">Save!</button>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<p class="container breadcumb z-depth-2 text-right" style="margin-top: 90px;">
+  <a class="breadLink" [routerLink]="['/home']">בית</a> /
+  <a class="breadLink" [routerLink]="['/auth/login']">התחברות</a> /
+  <a class="breadLink" [routerLink]="['/auth/login']">התחברות עם פלאפון</a>
+</p>
+
+
+<div [hidden]="user" class="text-center">
+  <h1>התחבר עם הפלאפון שלך</h1>
+  <p></p>
+  <label for="phone">מספר פלאפון</label><br>
+  <div class="form-group">
+    <mdb-select-2 [(ngModel)]="phoneNumber.prefix" style="width:50px; display: inline-block;">
+      <mdb-select-option *ngFor="let p of prefixes" [value]="p">{{p}}</mdb-select-option>
+    </mdb-select-2>
+    <span style="font-weight: bolder; font-size: larger; margin: 5px;">-</span>
+    <input type="text" [(ngModel)]="phoneNumber.line" class="form-control" placeholder="1234567" maxlength="7"
+      style="width: 130px; display: inline-block;">
+  </div>
+
+  <div id="recaptcha-container"></div>
+
+  <button mdbtn class="btn btn-dark" (click)="sendLoginCode()" style="margin-top:5px;">שלח קוד התחברות לפלאפון&nbsp;
+    <mdb-icon fas icon="sms"></mdb-icon></button>
+
+  <div *ngIf="windowRef.confirmationResult">
+    <hr>
+    <label for="code">הכנס את קוד ההתחברות כאן</label><br>
+    <button mdbtn class="btn btn-dark" (click)="verifyLoginCode()" style="margin-left:5px;">התחבר&nbsp;<i
+        class="fas fa-check"></i></button>
+    <input type="text" name="code" [(ngModel)]="verificationCode" class="form-control"
+      style="width: 130px; display: inline-block;">
+  </div>
+
+</div>
+
+<div *ngIf="user" class="text-center">
+  <h4>התחברת בהצלחה עם הפלאפון</h4>
+  <p>מספר פלאפון: {{ user?.phoneNumber }}</p>
+  <p>....מעביר</p>
+</div>

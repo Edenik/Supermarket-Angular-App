@@ -1,0 +1,22 @@
+<p class="breadcumb  z-depth-2 text-right">
+    <a class="breadLink" [routerLink]="['/home']">בית</a> /
+    <a class="breadLink" [routerLink]="['/admin']">אדמין</a> /
+    <a class="breadLink" [routerLink]="['/admin/control-panel']">לוח בקרה</a> /
+    <a class="breadLink" [routerLink]="['/admin/users']">משתמשים רשומים</a>
+</p>
+
+
+<h2 class="text-center"> <span *ngIf="registeredUsers"></span>
+    <a mdbBtn floating="true" color="success" mdbWavesEffect (click)="downloadData()"
+        mdbTooltip="Click to download Registered Users data" placement="top">
+        <i class="fas fa-download"></i>
+    </a>
+    {{registeredUsers}} :משתמשים רשומים
+</h2>
+
+
+<div class="container text-center">
+    <div *ngFor="let user of users" style="display: inline-block; margin: 10px;" class=" z-depth-2">
+        <app-user-info [user]="user"></app-user-info>
+    </div>
+</div>

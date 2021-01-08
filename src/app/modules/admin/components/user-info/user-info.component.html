@@ -1,0 +1,43 @@
+<div *ngIf="presence$ | async as presence" style="border: solid 1px gray; padding: 5px;  width: 325px;">
+    <div class="text-center" style="margin-bottom: 10px;">
+        <img src="{{user.photoURL}}" alt="" class="rounded-circle img-fluid z-depth-2"
+            style="height: 75px; width: 75px;">
+        <p></p>
+        <h4>
+            <mdb-badge pill="true" [ngClass]="{
+            'color green ':  presence.status  === 'online',
+            'warning-color-dark': presence.status  === 'away',
+            'danger-color-dark':  presence.status  === 'offline'
+        }"> {{ presence.status | titlecase}}</mdb-badge>
+        </h4>
+
+    </div>
+    <div class="text-left">
+        <p>Name: <span style="font-weight: bolder;">{{user.displayName | titlecase }}</span></p>
+        <p>UID: <span style="font-weight: bolder;">{{user.uid}}</span></p>
+        <p *ngIf="user.phoneNumber">Phone Number: <span style="font-weight: bolder;">{{user.phoneNumber}}</span></p>
+        <p *ngIf="user.email">Email: <span style="font-weight: bolder;">{{user.email | titlecase }}</span></p>
+        <p>Login Provider: <span style="font-weight: bolder;">{{user.providerId | titlecase }}</span></p>
+        <p>Subscribe: <span
+                style="font-weight: bolder; text-transform: capitalize; margin-right: 20px;">{{user.subscribeToNews }}</span>
+        </p>
+        <p>Role Type: <span style="font-weight: bolder;">{{user.roleType | titlecase }}</span></p>
+        <p>Creation Time: <span style="font-weight: bolder;">{{user.creationTime | date:'HH:mm, dd.MM.yy'}}</span></p>
+        <p>Last Sign In: <span style="font-weight: bolder;">{{user.lastSignInTime  |  date:'HH:mm, dd.MM.yy'}}</span>
+        </p>
+        <p>Last Online: <span style="font-weight: bolder;">{{ presence.timestamp |  date:'HH:mm, dd.MM.yy'}}</span></p>
+        <p>Orders:
+            <a style="font-weight: 700;" class="text-dark"
+                [routerLink]="['/moderator/orders/', user.uid]">{{orders.length}}</a>
+        </p>
+        <p>Incomes: <span style="font-weight: bolder;">{{incomes  |currency:"ILS":"symbol" }}</span></p>
+
+    </div>
+    <p class="text-center">
+        <button mdbBtn class="btn btn-info" size="sm" (click)="editUserModal(user)">
+            <i class="fas fa-user-edit"></i>&nbsp;Edit User</button>
+    </p>
+    <button type="button" mdbBtn color="success" size="sm" class="relative waves-light" mdbWavesEffect
+        (click)="downloadData()"><i class="fas fa-download"></i>&nbsp;Download data</button>
+
+</div>

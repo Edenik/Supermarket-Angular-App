@@ -1,0 +1,75 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4" style="height: 70px;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span style="font-size: 35px;">×</span>
+        </button>
+        <h4 class="modal-title text-dark" style="position: absolute; right: 15px;">הזמנה מספר #{{order.id}}</h4>
+    </div>
+
+    <div class="modal-body" style="padding-top: 5px; padding-bottom: 5px;">
+        <!-- Nav Tabs -->
+        <mdb-tabset #staticTabs [buttonClass]="'md-tabs tabs-2 light-green darken-2'" [contentClass]="'card'">
+            <!--Panel 1-->
+            <mdb-tab heading="פרטי הזמנה">
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <div class="text-right" style="margin-bottom: 10px; direction: rtl;">
+                            <p (click)="openUserInfoModal(order.uid)">שם המזמין: <strong
+                                    class="cursor-pointer">{{order.fullName}}</strong></p>
+                            <p>מספר פלאפון: {{order.phone}}</p>
+                            <p>אימייל: {{order.email}}</p>
+                            <p>עיר: {{order.city}}</p>
+                            <p>כתובת: {{order.adress}}</p>
+                            <p>הערות למשלוח: {{order.comments}}</p>
+                            <p>תאריך הזמנה: {{order.orderDate  |  date:'dd.MM.yy, HH:mm'}}</p>
+                            <p>מחיר לפני הנחה: {{order.originalOrderPrice |currency:"ILS":"symbol"}}</p>
+                            <p>הנחה: {{ order.orderDiscount |currency:"ILS":"symbol"}}</p>
+                            <p>מחיר אחרי הנחה:
+                                {{order.originalOrderPrice- order.orderDiscount |currency:"ILS":"symbol"}}</p>
+                            <p>סטאטוס הזמנה: {{order.orderStatus}}</p>
+                            <p *ngIf="order.statusUpdateDate">תאריך עדכון סטאטוס:
+                                {{order.statusUpdateDate  |  date:'dd.MM.yy, HH:mm'}}</p>
+                            <p *ngIf="order.statusUpdateUID" (click)="openUserInfoModal(order.statusUpdateUID)">מזהה
+                                מעדכן סטאטוס: <strong class="cursor-pointer">{{order.statusUpdateUID}}</strong></p>
+
+                        </div>
+                    </div>
+                </div>
+            </mdb-tab>
+            <!--Panel 2-->
+            <mdb-tab heading="מוצרי הזמנה">
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+
+                        <div fxLayout="row wrap" fxLayoutAlign="end center" class="z-depth-1"
+                            style="position: relative; margin-top: 5px;"
+                            *ngFor="let order of fullOrderItems; let i = index">
+                            <div class="text-right">
+                                <p class="details">{{order.product_name}} </p>
+                                <p class="details">כמות: {{order.quantity  | number : '1.2-2'}} </p>
+                                <p class="details" *ngIf="!order.order_item_discount">
+                                    {{order.order_item_price*order.quantity |currency:"ILS":"symbol"}}</p>
+                                <p class="details" *ngIf="order.order_item_discount"> <span
+                                        style="text-decoration: line-through;">{{order.order_item_price*order.quantity |currency:"ILS":"symbol"}}</span>
+                                    &nbsp;<span class="pink-text"
+                                        style="font-size: larger;">{{order.order_item_discount*order.quantity |currency:"ILS":"symbol"}}</span>
+                                </p>
+                            </div>
+                            <img src="{{order.photoURL}}" alt="" style="height: 75px; width: 75px; margin-left: 15px;"
+                                (click)="openFullDetailsProductModal(products[i])" class="cursor-pointer">
+                        </div>
+
+                    </div>
+                </div>
+            </mdb-tab>
+        </mdb-tabset>
+
+
+    </div>
+    <div class="modal-footer  text-center " style="display: inline;">
+        <button type="button" mdbBtn block="true" class="waves-light lime accent-3" aria-label="Close"
+            (click)="closeModal()" mdbWavesEffect>סגור&nbsp;<i class="fas fa-times-circle text-dark"></i></button>
+    </div>
+</div>

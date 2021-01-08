@@ -1,0 +1,20 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-dark" id="myModalLabel">Category #{{category.id}} details: </h4>
+    </div>
+    <div class="modal-body" style="padding-top: 5px; padding-bottom: 5px;">
+        <div class="text-right" style="margin-bottom: 10px; direction: rtl;">
+            <p>שם קטגוריה: {{category.name}}</p>
+            <p>כמות מוצרים: {{category.quantity}}</p>
+            <p>תאריך הוספה: {{category.dateAdded | date:'dd.MM.yy, HH:mm'}}</p>
+            <p (click)="openUserInfoModal(category.addedByUID)">נוסף על ידי: <strong
+                    class="cursor-pointer">{{category.addedByUID}}</strong></p>
+            <p *ngIf="category.dateEdited">תאריך עריכה: {{category.dateEdited | date:'dd.MM.yy, HH:mm'}}</p>
+            <p *ngIf="category.dateEdited" (click)="openUserInfoModal(category.editedByUID)">נערך על ידי: <strong
+                    class="cursor-pointer">{{category.editedByUID}}</strong></p>
+        </div>
+    </div>
+</div>

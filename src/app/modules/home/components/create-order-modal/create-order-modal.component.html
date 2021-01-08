@@ -1,0 +1,104 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4" style="height: 70px;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span style="font-size: 35px;">×</span>
+        </button>
+        <h4 class="modal-title text-dark" style="position: absolute; right: 15px;">סיכום הזמנה</h4>
+    </div>
+    <div class="modal-body text-right" style="direction: rtl;">
+        <p>פרטי הזמנה / {{user.displayName}}</p>
+        <hr>
+        <div class="text-left" style="direction: ltr;">
+            <div class="md-form mb-5">
+                <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
+                <input type="email" id="form1" class="form-control" mdbInput mdbValidate
+                    [formControl]="createOrderModalEmail" required>
+                <label for="form1">Email</label>
+                <mdb-error
+                    *ngIf="createOrderModalEmail.invalid && (createOrderModalEmail.dirty || createOrderModalEmail.touched)">
+                    לא תקין
+                </mdb-error>
+                <mdb-success
+                    *ngIf="createOrderModalEmail.valid && (createOrderModalEmail.dirty || createOrderModalEmail.touched)">
+                    תקין
+                </mdb-success>
+            </div>
+
+            <div class="md-form mb-5">
+                <mdb-icon fas icon="mobile-alt" class="prefix grey-text"></mdb-icon>
+                <input type="text" id="form2" pattern="^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$"
+                    class="form-control" mdbInput mdbValidate [formControl]="createOrderModalPhone">
+                <label for="form2">פלאפון</label>
+                <mdb-error
+                    *ngIf="createOrderModalPhone.invalid && (createOrderModalPhone.dirty || createOrderModalPhone.touched)">
+                    לא תקין
+                </mdb-error>
+                <mdb-success
+                    *ngIf="createOrderModalPhone.valid && (createOrderModalPhone.dirty || createOrderModalPhone.touched)">
+                    תקין
+                </mdb-success>
+            </div>
+
+            <div class="md-form mb-5">
+                <mdb-icon fas icon="city" class="prefix grey-text"></mdb-icon>
+                <input type="text" id="form3" minlength="3" maxlength="50" class="form-control" mdbInput mdbValidate
+                    [formControl]="createOrderModalCity" style="text-align: right;">
+                <label for="form3">עיר</label>
+                <mdb-error
+                    *ngIf="createOrderModalCity.invalid && (createOrderModalCity.dirty || createOrderModalCity.touched)">
+                    לא תקין
+                </mdb-error>
+                <mdb-success
+                    *ngIf="createOrderModalCity.valid && (createOrderModalCity.dirty || createOrderModalCity.touched)">
+                    תקין
+                </mdb-success>
+            </div>
+
+            <div class="md-form mb-5">
+                <mdb-icon fas icon="home" class="prefix grey-text"></mdb-icon>
+                <input type="text" id="form4" class="form-control" minlength="5" maxlength="50" mdbInput mdbValidate
+                    [formControl]="createOrderModalAdress" style="text-align: right;">
+                <label for="form4">כתובת</label>
+                <mdb-error
+                    *ngIf="createOrderModalAdress.invalid && (createOrderModalAdress.dirty || createOrderModalAdress.touched)">
+                    לא תקין
+                </mdb-error>
+                <mdb-success
+                    *ngIf="createOrderModalAdress.valid && (createOrderModalAdress.dirty || createOrderModalAdress.touched)">
+                    תקין
+                </mdb-success>
+            </div>
+
+            <div class="md-form">
+                <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
+                <textarea type="text" id="form5" class="md-textarea form-control" rows="1" minlength="5" maxlength="100"
+                    mdbInput mdbValidate [formControl]="createOrderModalComments" style="text-align: right;"></textarea>
+                <label for="form5">הערות למשלוח</label>
+                <mdb-error
+                    *ngIf="createOrderModalComments.invalid && (createOrderModalComments.dirty || createOrderModalComments.touched)">
+                    לא תקין
+                </mdb-error>
+                <mdb-success
+                    *ngIf="createOrderModalComments.valid && (createOrderModalComments.dirty || createOrderModalComments.touched)">
+                    תקין
+                </mdb-success>
+            </div>
+        </div>
+        <hr>
+
+        <p><strong>סיכום הזמנה:</strong></p>
+        <p><strong>פריטים:</strong> {{products.length}}</p>
+        <p><strong>מחיר לפני הנחה:</strong> {{originalCartPrice |currency:"ILS":"symbol"}}</p>
+        <p><strong>בקנייה זו חסכת:</strong> {{originalCartPrice-totalCartPrice |currency:"ILS":"symbol"}}</p>
+        <hr>
+        <p><strong>לתשלום:</strong> {{totalCartPrice |currency:"ILS":"symbol"}}</p>
+
+        <button mdbBtn class="waves-light lime accent-3" block="true" mdbWavesEffect style="margin: 0; font-size: 18px;"
+            (click)="sendOrder()" [disabled]="!validatingForm.valid">
+            <mdb-icon fas icon="check" class="text-dark"></mdb-icon>
+            &nbsp;
+            בצע הזמנה
+        </button>
+
+    </div>
+</div>

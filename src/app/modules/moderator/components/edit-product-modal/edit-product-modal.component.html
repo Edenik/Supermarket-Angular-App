@@ -1,0 +1,168 @@
+<div class="modal-header lime accent-4">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title text-dark" id="myModalLabel">
+        <span *ngIf="formType == 'editProduct'">Edit Product: #{{product.id}} - {{product.productName}}</span>
+        <span *ngIf="formType == 'addProduct'">Add new Product: </span>
+        <span *ngIf="formType == 'importProduct'">Import new Product: {{product.productName}}</span>
+    </h4>
+</div>
+<div class="modal-body  mx-3" style="padding-top: 5px; padding-bottom: 5px;">
+    <div class="text-center" style="margin-bottom: 10px;">
+        <img src="{{validatingForm.value.editProductPhotoURL}}" (load)="photoLoad()" (error)="photoError()" alt=""
+            class="rounded-circle img-fluid z-depth-2" style="height: 120px; width: 120px; object-fit: contain;">
+    </div>
+    <div class="md-form mb-2">
+        <mdb-icon far icon="image" class="prefix grey-text"></mdb-icon>
+        <input type="text" id="form1" class="form-control-sm" [formControl]="editProductPhotoURL" mdbInput mdbValidate>
+        <label for="form1">Photo URL</label>
+        <mdb-error
+            *ngIf="editProductPhotoURL.invalid && (editProductPhotoURL.dirty || editProductPhotoURL.touched) || photoLoaded==false">
+            Input invalid
+        </mdb-error>
+        <mdb-success *ngIf="photoLoaded == true ">
+            Input valid
+        </mdb-success>
+    </div>
+
+    <div class="md-form mb-2">
+        <mdb-icon fas icon="info-circle" class="prefix grey-text"></mdb-icon>
+        <input type="text" id="form2" class="form-control-sm" [formControl]="editProductName" maxlength="21" mdbInput
+            mdbValidate>
+        <label for="form2" mdbTooltip="Basic tooltip" placement="right">Product Name</label>
+        <mdb-error *ngIf="editProductName.invalid && (editProductName.dirty || editProductName.touched)">
+            Input invalid
+        </mdb-error>
+        <mdb-success
+            *ngIf="editProductName.valid && (editProductName.dirty || editProductName.touched) || editProductName.value">
+            Input valid
+        </mdb-success>
+    </div>
+
+    <div class="md-form mb-2">
+        <mdb-icon fas icon="info-circle" class="prefix grey-text"></mdb-icon>
+        <input type="text" id="form3" class="form-control-sm" [formControl]="editProductBrand" mdbInput mdbValidate>
+        <label for="form3">Product Brand</label>
+        <mdb-error *ngIf="editProductBrand.invalid && (editProductBrand.dirty || editProductBrand.touched)">
+            Input invalid
+        </mdb-error>
+        <mdb-success
+            *ngIf="editProductBrand.valid && (editProductBrand.dirty || editProductBrand.touched) || editProductBrand.value">
+            Input valid
+        </mdb-success>
+    </div>
+
+
+    <div class="md-form mb-2">
+        <mdb-icon fas icon="shekel-sign" class="prefix grey-text"></mdb-icon>
+        <input type="number" id="form4" class="form-control-sm" [formControl]="editPrice" mdbInput mdbValidate>
+        <label for="form4">Product Price</label>
+        <mdb-error *ngIf="editPrice.invalid && (editPrice.dirty || editPrice.touched)">
+            Input invalid
+        </mdb-error>
+        <mdb-success *ngIf="editPrice.valid && (editPrice.dirty || editPrice.touched) || editPrice.value">
+            Input valid
+        </mdb-success>
+    </div>
+
+    <div class="input-group mb-3" style="margin-top: 25px;">
+        <div class="input-group-prepend">
+            <label class="input-group-text primary-color text-white" for="inputGroupSelect01">
+                Unit:</label>
+        </div>
+        <select class="custom-select" id="select" [formControl]="editUnit" (change)="changeUnit($event)">
+            <option value="gr">gr</option>
+            <option value="ml">ml</option>
+            <option value="unit">unit</option>
+        </select>
+    </div>
+
+
+    <div class="md-form mb-2">
+        <mdb-icon fas icon="weight" class="prefix grey-text"></mdb-icon>
+        <input type="number" id="form11" class="form-control-sm" [formControl]="editWeight" mdbInput mdbValidate>
+        <label for="form11">Weight</label>
+        <mdb-error *ngIf="editWeight.invalid && (editWeight.dirty || editWeight.touched)">
+            Input invalid
+        </mdb-error>
+        <mdb-success *ngIf="editWeight.valid && (editWeight.dirty || editWeight.touched) || editWeight.value">
+            Input valid
+        </mdb-success>
+    </div>
+
+    <div class="input-group mb-3" style="margin-top: 25px;">
+        <div class="input-group-prepend">
+            <label class="input-group-text primary-color text-white">Category:</label>
+        </div>
+        <select class="custom-select" id="select" [formControl]="editCategory" (change)="changeCategory($event)">
+            <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+        </select>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text primary-color text-white">Sub Category:</label>
+        </div>
+        <select class="custom-select" id="select" [formControl]="editSubCategory" (change)="changeSubcategory($event)">
+            <option>Choose subcategory</option>
+            <option *ngFor="let subcategory of subcategories" value="{{subcategory.id}}">{{subcategory.name}}</option>
+        </select>
+    </div>
+
+
+
+    <form [formGroup]="validatingForm" class="md-form">
+        <mdb-checkbox formControlName="editInSale" (change)="onChange('editInSale')">In Sale?</mdb-checkbox>
+        <div *ngIf="inSale">
+            <div class="md-form mb-2">
+                <mdb-icon fas icon="shekel-sign" class="prefix grey-text"></mdb-icon>
+                <input type="number" id="form9" class="form-control-sm" [formControl]="editSalePrice" mdbInput
+                    mdbValidate>
+                <label for="form9">Sale Price</label>
+                <mdb-error *ngIf="editSalePrice.invalid && (editSalePrice.dirty || editSalePrice.touched)">
+                    Input invalid
+                </mdb-error>
+                <mdb-success
+                    *ngIf="editSalePrice.valid && (editSalePrice.dirty || editSalePrice.touched) || editSalePrice.value">
+                    Input valid
+                </mdb-success>
+            </div>
+
+            <div class="md-form mb-2">
+                <mdb-icon fas icon="info-circle" class="prefix grey-text"></mdb-icon>
+                <input type="text" id="form10" class="form-control-sm" [formControl]="editSaleDescription" mdbInput
+                    mdbValidate>
+                <label for="form10">Sale Description</label>
+                <mdb-error
+                    *ngIf="editSaleDescription.invalid && (editSaleDescription.dirty || editSaleDescription.touched)">
+                    Input invalid
+                </mdb-error>
+                <mdb-success
+                    *ngIf="editSaleDescription.valid && (editSaleDescription.dirty || editSaleDescription.touched) || editSaleDescription.value">
+                    Input valid
+                </mdb-success>
+            </div>
+        </div>
+
+
+
+        <mdb-checkbox formControlName="editHasNutritialMark" (change)="onChange('editHasNutritialMark')">Has
+            Nutritial
+            Mark?</mdb-checkbox>
+        <p *ngIf="hasNutritialMark">
+            <mdb-checkbox formControlName="editNutritialFat">High Fat?</mdb-checkbox>
+            <mdb-checkbox formControlName="editNutritialSodium">High Sodium?</mdb-checkbox>
+            <mdb-checkbox formControlName="editNutritialSugar">High Sugar?</mdb-checkbox>
+        </p>
+
+    </form>
+
+</div>
+
+<div class="modal-footer  text-center " style="display: inline;">
+    <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="closeModal()"
+        mdbWavesEffect><i class="fas fa-times-circle"></i>&nbsp;Close</button>
+    <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
+        [disabled]="!validatingForm.valid" (click)="save()"><i class="fas fa-save"></i>&nbsp;Save!</button>
+</div>

@@ -1,0 +1,51 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-dark" id="myModalLabel">Edit User: {{user.displayName | titlecase }}</h4>
+    </div>
+    <div class="modal-body" style="padding-top: 5px; padding-bottom: 5px;">
+        <div class="text-center" style="margin-bottom: 10px;">
+            <img src="{{user.photoURL}}" alt="" class="rounded-circle img-fluid z-depth-2"
+                style="height: 120px; width: 120px;">
+        </div>
+        <p>Name: <span style="font-weight: bolder;">{{user.displayName | titlecase }}</span></p>
+        <p>UID: <span style="font-weight: bolder;">{{user.uid}}</span></p>
+        <p>Login Provider: <span style="font-weight: bolder;">{{user.providerId | titlecase }}</span>
+            <button *ngIf="user.providerId=='password'" (click)="resetPassword(user)" mdbBtn size="sm"
+                class="btn btn-primary">Reset Password</button>
+        </p>
+        <p>Subscribe: <span
+                style="font-weight: bolder; text-transform: capitalize; margin-right: 20px;">{{user.subscribeToNews }}</span>
+            <button mdbBtn *ngIf="user.subscribeToNews==true" size="sm" class="btn btn-warning"
+                (click)="updateSubscribe(user,false)" mdbWavesEffect><i
+                    class="fas fa-newspaper"></i>&nbsp;Unsubscribe</button>
+            <button mdbBtn *ngIf="user.subscribeToNews==false" size="sm" class="btn btn-success"
+                (click)="updateSubscribe(user,true)" mdbWavesEffect><i
+                    class="fas fa-newspaper"></i>&nbsp;Subscribe</button>
+        </p>
+
+        <p>Role Type: <span style="font-weight: bolder;">{{user.roleType | titlecase }}</span></p>
+        <p class="text-center">
+            <button mdbBtn size="sm" (click)="updateRole('user',user.uid)" class="btn btn-primary"
+                [ngClass]="{'btn-dark':user.roleType === 'user'}" [disabled]="user.roleType === 'user'"
+                mdbWavesEffect><i class="fas fa-user"></i>&nbsp;User</button>
+
+            <button mdbBtn size="sm" (click)="updateRole('moderator',user.uid)" class="btn btn-primary"
+                [ngClass]="{'btn-dark':user.roleType === 'moderator'}" [disabled]="user.roleType === 'moderator'"
+                mdbWavesEffect><i class="fas fa-user-tie"></i>&nbsp;Moderator</button>
+
+            <button mdbBtn size="sm" (click)="updateRole('admin',user.uid)" class="btn btn-primary"
+                [ngClass]="{'btn-dark':user.roleType === 'admin'}" [disabled]="user.roleType === 'admin'"
+                mdbWavesEffect><i class="fas fa-user-shield"></i>&nbsp;Admin</button>
+        </p>
+        <p class="text-center"><button mdbBtn class="btn btn-danger" size="sm" (click)="deleteUser(user.uid)"><i
+                    class="fas fa-user-slash"></i>&nbsp;Delete
+                User</button></p>
+    </div>
+    <div class="modal-footer  text-center " style="display: inline;">
+        <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="closeModal()"
+            mdbWavesEffect><i class="fas fa-times-circle"></i>&nbsp;Close</button>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<p class="container breadcumb z-depth-2 text-right" style="margin-top: 90px;">
+  <a class="breadLink" [routerLink]="['/home']">בית</a> /
+  <a class="breadLink" [routerLink]="['/auth/login']">התחברות</a>
+</p>
+
+
+<h1 class="header">התחבר</h1>
+<div class="container">
+  <div class="row flex-center">
+    <div class="col-lg-6">
+      <form [formGroup]="loginForm" class="text-right">
+        <div class="form-group">
+          <label>כתובת אימייל</label>
+          <input type="email" formControlName="email" class="form-control">
+        </div>
+        <div class="form-group" class="text-right">
+          <label>סיסמא</label>
+          <input type="password" class="form-control" formControlName="password">
+          <label class="error flex-center">{{errorMessage}}</label>
+          <label *ngIf="errorMessage" class="flex-center"><a [routerLink]="['/auth/forgot-password']">אפס
+              סיסמא&nbsp;</a>?שכחת את הסיסמא</label>
+        </div>
+
+        <button type="submit" (click)="tryLogin(loginForm.value)" class="btn btn-info btn-block">התחבר עם אימייל&nbsp;
+          <mdb-icon fas icon="at"></mdb-icon></button>
+      </form>
+    </div>
+  </div>
+  <!-- <div class="row  flex-center">
+    <div class="col-lg-6 col-lg-offset-6">
+      <button type="button" class="btn btn-primary btn-block" (click)="tryFacebookLogin()">Facebook התחבר עם&nbsp;<mdb-icon fab icon="facebook-f"></mdb-icon></button>
+    </div>
+  </div> -->
+  <div class="row  flex-center">
+    <div class="col-lg-6 col-lg-offset-6">
+      <button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Google התחבר עם&nbsp;<mdb-icon
+          fab icon="google"></mdb-icon></button>
+    </div>
+  </div>
+  <div class="row  flex-center">
+    <div class="col-lg-6 col-lg-offset-6">
+      <a class="btn btn-dark btn-block" [routerLink]="['/auth/phone-login']">התחבר עם פלאפון&nbsp;<mdb-icon fas
+          icon="mobile-alt"></mdb-icon></a>
+    </div>
+  </div>
+
+  <div class="row  flex-center">
+    <div class="col-lg-6 col-lg-offset-6  flex-center">
+      <p>עדיין אין לך משתמש? <a [routerLink]="['/auth/register']">הירשם</a></p>
+    </div>
+  </div>
+</div>

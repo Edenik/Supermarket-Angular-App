@@ -1,0 +1,21 @@
+<div fxLayout="row wrap" fxLayoutAlign="end center" class="z-depth-1 itemCard"
+    style="position: relative; margin-top: 5px;">
+    <div class="text-right">
+        <p class="details">{{product.item.productName}} </p>
+        <p class="details" *ngIf="!product.item.inSale">{{product.item.price |currency:"ILS":"symbol"}}</p>
+        <p class="details" *ngIf="product.item.inSale"> <span
+                style="text-decoration: line-through;">{{product.item.price |currency:"ILS":"symbol"}}</span>
+            &nbsp;<span class="pink-text"
+                style="font-size: larger;">{{product.item.salePrice |currency:"ILS":"symbol"}}</span></p>
+        <button class="plusminusBTN" (click)="updateQuantity('minus')" style="background-color: #f50057;"><i
+                class="fa fa-minus"></i></button>
+        <input type="text" value="{{productQuantity | number : '1.2-2'}}" style="width: 50px; height: 25px" disabled>
+        <button class="plusminusBTN text-center" (click)="updateQuantity('plus')" style="background-color: #76ff03 ;"><i
+                class="fa fa-plus"></i></button>
+    </div>
+
+    <img src="{{product.item.photoURL}}" alt="" style="height: 70px; width: 70px; margin: 0 3px 0 3px"
+        class="cursor-pointer" (click)="openFullDetailsProductModal(product.item)">
+    <button class="x" (click)="deleteItem(product.item.id)">x</button>
+
+</div>

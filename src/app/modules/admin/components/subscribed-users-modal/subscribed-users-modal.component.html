@@ -1,0 +1,26 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-dark" id="myModalLabel">Subscribed Users:</h4>
+    </div>
+    <div class="modal-body">
+        <p>There are {{users.length}} subscribers:</p>
+        <ol>
+            <li *ngFor="let user of users">
+                <span class="blue-text" *ngIf="user.user.includes('+')" (click)="openUserInfoModal(user.uid)"
+                    mdbTooltip="Click for more detailes about user" placement="top">{{user.user}}</span>
+                <span class="blue-text" *ngIf="!user.user.includes('+')" (click)="openUserInfoModal(user.uid)"
+                    mdbTooltip="Click for more detailes about user" placement="top">{{user.user}}</span>
+            </li>
+        </ol>
+
+    </div>
+    <div class="modal-footer  text-center " style="display: inline;">
+        <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="closeModal()"
+            mdbWavesEffect><i class="fas fa-times-circle"></i>&nbsp;Close</button>
+        <button type="button" mdbBtn color="success" class="relative waves-light" mdbWavesEffect
+            (click)="downloadData()"><i class="fas fa-download"></i>&nbsp;Download data</button>
+    </div>
+</div>

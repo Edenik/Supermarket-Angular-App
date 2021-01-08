@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="col-md-6 mx-auto">
+    <div class="md-form">
+      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
+        mdbInput>
+      <label for="search-input">Search</label>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1 mx-auto"
+      style="width: fit-content;">
+      <thead class="sticky-top">
+        <tr>
+          <th *ngFor="let head of headElements; let i = index" scope="col">{{head.display }} <mdb-icon fas
+              icon="arrow-up" (click)="sort(head.value, 'plus')" *ngIf="head.value!='actions'"
+              style="margin-right: 3px;"></mdb-icon>
+            <mdb-icon fas icon="arrow-down" (click)="sort(head.value, 'minus')" *ngIf="head.value!='actions'">
+            </mdb-icon>
+          </th>
+        </tr>
+      </thead>
+      <tbody #row>
+        <tr mdbTableCol *ngFor="let el of subcategories; let i = index">
+          <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" scope="row">
+            {{el.id}}</th>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+            <a [routerLink]="['/moderator/subcategories', el.name]" style="font-weight: bolder;"
+              class="text-dark">{{el.name}}</a>
+          </td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+            <a [routerLink]="['/moderator/products', el.name]" style="font-weight: bolder;"
+              class="text-dark">{{el.quantity}}</a>
+          </td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+            <a [routerLink]="['/moderator/categories', el.categoryName]" style="font-weight: bolder;"
+              class="text-dark">{{el.categoryName}}</a>
+          </td>
+
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+            {{el.dateAdded |  date:'dd.MM.yy, HH:mm'}}</td>
+          <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+            <div class="btn-group btn-group" role="group" style="width: 100%;">
+              <button mdbBtn type="button" size="sm" color="warning" class="waves-light" mdbWavesEffect
+                mdbTooltip="ערוך תת-קטגוריה" placement="top" (click)="openEditSubcategoryModal(el)">
+                <i class="far fa-edit"></i>
+              </button>
+              <button mdbBtn type="button" size="sm" color="danger" class="waves-light" mdbWavesEffect
+                mdbTooltip="מחק תת-קטגוריה" placement="top" (click)="deleteSubcategory(el.id)">
+                <i class="far fa-trash-alt"></i>
+              </button>
+              <button mdbBtn type="button" size="sm" color="unique" class="waves-light" mdbWavesEffect
+                mdbTooltip="צפה בפרטים מלאים" placement="top" (click)="openFullDetailsSubategoryModal(el)">
+                <i class="far fa-eye"></i>
+              </button>
+              <button mdbBtn type="button" size="sm" class="waves-light stylish-color text-white" mdbWavesEffect
+                mdbTooltip="ייצא נתונים" placement="top" (click)="exportJsonData(el)">
+                <i class="fas fa-file-download"></i>
+              </button>
+              
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot class="grey lighten-5 w-100">
+        <tr>
+          <td colspan="8">
+            <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="subcategories">
+            </mdb-table-pagination>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+
+</div>

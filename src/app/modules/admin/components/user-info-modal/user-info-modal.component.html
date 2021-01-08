@@ -1,0 +1,61 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-dark" id="myModalLabel">User Detailes:</h4>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="fullUser && presence$ | async as presence">
+            <div class="text-center" style="margin-bottom: 10px;">
+                <img src="{{fullUser.photoURL}}" alt="" class="rounded-circle img-fluid z-depth-2"
+                    style="height: 75px; width: 75px;">
+                <p></p>
+                <h4>
+                    <mdb-badge pill="true" [ngClass]="{
+                    'color green ':  presence.status  === 'online',
+                    'warning-color-dark': presence.status  === 'away',
+                    'danger-color-dark':  presence.status  === 'offline'
+                }"> {{ presence.status | titlecase}}</mdb-badge>
+                </h4>
+
+            </div>
+            <div class="text-left" *ngIf="fullUser">
+                <p>Name: <span style="font-weight: bolder;">{{fullUser.displayName | titlecase }}</span></p>
+                <p>UID: <span style="font-weight: bolder;">{{fullUser.uid}}</span></p>
+                <p *ngIf="fullUser.phoneNumber">Phone Number: <span
+                        style="font-weight: bolder;">{{fullUser.phoneNumber}}</span></p>
+                <p *ngIf="fullUser.email">Email: <span
+                        style="font-weight: bolder;">{{fullUser.email | titlecase }}</span></p>
+                <p>Login Provider: <span style="font-weight: bolder;">{{fullUser.providerId | titlecase }}</span></p>
+                <p>Subscribe: <span
+                        style="font-weight: bolder; text-transform: capitalize; margin-right: 20px;">{{fullUser.subscribeToNews }}</span>
+                </p>
+                <p>Role Type: <span style="font-weight: bolder;">{{fullUser.roleType | titlecase }}</span></p>
+                <p>Creation Time: <span
+                        style="font-weight: bolder;">{{fullUser.creationTime | date:'HH:mm, dd.MM.yy'}}</span></p>
+                <p>Last Sign In: <span
+                        style="font-weight: bolder;">{{fullUser.lastSignInTime  |  date:'HH:mm, dd.MM.yy'}}</span></p>
+                <p>Last Online: <span
+                        style="font-weight: bolder;">{{ presence.timestamp |  date:'HH:mm, dd.MM.yy'}}</span></p>
+                <p *ngIf="orders">Orders:
+                    <a class="text-dark cursor-pointer" style="font-weight: 700;"
+                        href="./moderator/orders/{{fullUser.uid}}">{{orders.length}}</a>
+                <p>Incomes: <span style="font-weight: bolder;">{{incomes  |currency:"ILS":"symbol" }}</span></p>
+
+            </div>
+            <p class="text-center">
+                <button mdbBtn class="btn btn-info" size="sm" (click)="editUserModal(fullUser)"
+                    [disabled]="roleType!='admin'">
+                    <i class="fas fa-user-edit"></i>&nbsp;Edit User</button>
+            </p>
+        </div>
+
+    </div>
+    <div class="modal-footer  text-center " style="display: inline;">
+        <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="closeModal()"
+            mdbWavesEffect><i class="fas fa-times-circle"></i>&nbsp;Close</button>
+        <button type="button" mdbBtn color="success" class="relative waves-light" mdbWavesEffect
+            (click)="downloadData()"><i class="fas fa-download"></i>&nbsp;Download data</button>
+    </div>
+</div>

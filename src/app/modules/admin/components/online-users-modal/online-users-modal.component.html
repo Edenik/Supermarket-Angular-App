@@ -1,0 +1,24 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title text-dark" id="myModalLabel">Online Users:</h4>
+    </div>
+    <div class="modal-body">
+        <p>There are {{users.length}} online users:</p>
+        <ol>
+            <li *ngFor="let user of fullUsers">
+                <p (click)="openUserInfoModal(user.uid)" mdbTooltip="Click for more detailes about user"
+                    placement="top"><span class="blue-text">{{user.displayName}}</span> - {{user.uid}}</p>
+            </li>
+        </ol>
+
+    </div>
+    <div class="modal-footer  text-center " style="display: inline;">
+        <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" (click)="closeModal()"
+            mdbWavesEffect><i class="fas fa-times-circle"></i>&nbsp;Close</button>
+        <button type="button" mdbBtn color="success" class="relative waves-light" mdbWavesEffect
+            (click)="downloadData()"><i class="fas fa-download"></i>&nbsp;Download data</button>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="col-md-6 mx-auto">
+        <div class="md-form">
+            <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
+                mdbInput>
+            <label for="search-input">Search</label>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1 mx-auto"
+            style="width: fit-content;">
+            <thead class="sticky-top">
+                <tr>
+                    <th *ngFor="let head of headElements; let i = index" scope="col" class="text-center">
+                        {{head.display}}
+                        <p>
+                            <mdb-icon fas icon="arrow-up" (click)="sort(head.value, 'plus')"
+                                *ngIf="head.value!='actions'  && head.value!='image'" style="margin-right: 3px;">
+                            </mdb-icon>
+                            <mdb-icon fas icon="arrow-down" (click)="sort(head.value, 'minus')"
+                                *ngIf="head.value!='actions' && head.value!='image'"></mdb-icon>
+                        </p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody #row>
+                <tr mdbTableCol *ngFor="let el of products; let i = index">
+                    <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                        scope="row">{{el.id}}</th>
+                    <th (click)="openFullDetailsProductModal(el)" class="cursor-pointer"
+                        *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                        scope="row"><img src="{{el.photoURL}}" style="height: 50px; width: 50px; object-fit:contain">
+                    </th>
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        {{el.productName}}</td>
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        <a [routerLink]="['/moderator/categories', el.categoryName]" style="font-weight: bolder;"
+                            class="text-dark">{{el.categoryName}}</a>
+                    </td>
+
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        <a [routerLink]="['/moderator/subcategories', el.subcategoryName]" style="font-weight: bolder;"
+                            class="text-dark">{{el.subcategoryName}}</a>
+                    </td>
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        <div *ngIf="el.inSale">
+                            <span style="text-decoration: line-through;">{{el.price |currency:"ILS":"symbol"}}</span>
+                            &nbsp;<span class="pink-text"
+                                style="font-size: larger;">{{el.salePrice |currency:"ILS":"symbol"}}</span>
+                        </div>
+                        <span *ngIf="!el.inSale">{{el.price |currency:"ILS":"symbol"}}</span>
+                    </td>
+
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        <span *ngIf="el.inSale" class="pink-text">במבצע</span>
+                    </td>
+
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        {{el.dateAdded |  date:'dd.MM.yy, HH:mm'}}</td>
+                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                        <div class="btn-group btn-group" role="group" style="width: 100%;">
+                            <button mdbBtn type="button" size="sm" color="warning" class="waves-light" mdbWavesEffect
+                                mdbTooltip="ערוך מוצר" placement="top" (click)="openEditProductModal(el)">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button mdbBtn type="button" size="sm" color="danger" class="waves-light" mdbWavesEffect
+                                mdbTooltip="מחק מוצר" placement="top" (click)="deleteProduct(el.id)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                            <button mdbBtn type="button" size="sm" color="unique" class="waves-light" mdbWavesEffect
+                                mdbTooltip="צפה בפרטים מלאים" placement="top" (click)="openFullDetailsProductModal(el)">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            <button mdbBtn type="button" size="sm" class="waves-light stylish-color text-white"
+                                mdbWavesEffect mdbTooltip="ייצא נתונים" placement="top" (click)="exportJsonData(el)">
+                                <i class="fas fa-file-download"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="grey lighten-5 w-100">
+                <tr>
+                    <td colspan="9">
+                        <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="products">
+                        </mdb-table-pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+</div>

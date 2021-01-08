@@ -1,0 +1,41 @@
+.itemCard {
+  width: 100%;
+  height: 100px;
+  padding: 5px 0 5px 0;
+}
+
+.details {
+  margin: 0;
+}
+
+.x {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-weight: bolder;
+  border: 0 !important;
+  background-color: white;
+  font-weight: bolder;
+  outline: none !important;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.x:hover {
+  background-color: #c6ff00 !important;
+}
+
+.quantityInput {
+  border: 0;
+}
+
+.plusminusBTN {
+  padding-right: 3px;
+  padding-left: 3px;
+  border-top-width: 0px;
+  border-bottom-width: 0px;
+  border-right-width: 0px;
+  border-left-width: 0px;
+  width: 24px;
+}

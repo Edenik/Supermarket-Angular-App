@@ -1,0 +1,18 @@
+<div class="modal-content text-center">
+    <!--Header-->
+    <div class="modal-header d-flex justify-content-center">
+      <p class="heading">Are you sure?</p>
+    </div>
+
+    <!--Body-->
+    <div class="modal-body">
+      <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+    </div>
+
+    <!--Footer-->
+    <div class="modal-footer justify-content-center">
+      <a (click)="confirm()" mdbBtn color="danger" outline="true" class="waves-effect"
+        mdbWavesEffect>Yes</a>
+      <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="closeModal()">No</a>
+    </div>
+  </div>

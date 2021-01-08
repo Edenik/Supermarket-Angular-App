@@ -1,0 +1,47 @@
+<div class="product-card text-center">
+    <!--Card-->
+    <mdb-card cascade="true" narrower="true">
+
+
+        <mdb-card-body cascade="true" class="text-right pb-0 px-0" style="padding: 5px">
+            <!--Card content-->
+            <div style="padding: 10px 10px 0px 10px">
+                <mdb-card-text style="direction: rtl;">
+                    <p>שם תת-קטגוריה: {{subcategory.name}}</p>
+                    <p>שם קטגורית אב: {{subcategory.categoryName}}</p>
+                    <p> מוצרים: {{subcategory.quantity}}</p>
+
+                    <p>תאריך הוספה: {{subcategory.dateAdded |  date:'dd.MM.yy, HH:mm'}}</p>
+                </mdb-card-text>
+            </div>
+
+            <!-- Card footer -->
+            <div class="card-footer text-center mt-4" style="padding: 0; margin:0 !important;">
+                <div class="btn-group btn-group" role="group" style="width: 100%;">
+                    <button mdbBtn type="button" color="warning" class="waves-light" mdbWavesEffect
+                        mdbTooltip="ערוך תת-קטגוריה" placement="top" (click)="openEditSubcategoryModal(subcategory)">
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <button mdbBtn type="button" color="danger" class="waves-light" mdbWavesEffect
+                        mdbTooltip="מחק תת-קטגוריה" placement="top" (click)="deleteSubcategory(subcategory.id)">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button mdbBtn type="button" color="unique" class="waves-light" mdbWavesEffect
+                        mdbTooltip="צפה בפרטים מלאים" placement="top"
+                        (click)="openFullDetailsSubategoryModal(subcategory)">
+                        <i class="far fa-eye"></i>
+                    </button>
+                    <button mdbBtn type="button" size="sm" class="waves-light stylish-color text-white" mdbWavesEffect
+                        mdbTooltip="ייצא נתונים" placement="top" (click)="exportJsonData(subcategory)">
+                        <i class="fas fa-file-download"></i>
+                    </button>
+
+                </div>
+            </div>
+
+        </mdb-card-body>
+        <!--/.Card content-->
+
+    </mdb-card>
+    <!--/.Card-->
+</div>

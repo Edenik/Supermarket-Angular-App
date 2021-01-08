@@ -1,0 +1,99 @@
+.navbar.second-navbar {
+  margin-top: 70px;
+  background: grey !important;
+  transition: all .5s ease-in-out;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+
+.navbar.second-navbar.top-nav-collapse {
+  margin-top: 45px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+.modLinks {
+  margin: 0 5px 0 5px;
+  font-size: 18px;
+}
+
+a.active {
+  color: white !important;
+  background-color: #558b2f !important;
+}
+
+
+.modLinks:link {
+  color: #fff !important;
+}
+
+.modLinks:visited {
+  color: #fff !important;
+}
+
+.sidenav-links {
+  padding: 0 10px 0 0 !important;
+  font-size: 20px;
+  font-weight: bolder;
+  color: #1b5e20 !important;
+}
+
+.head-icon{
+  font-size: 1.4rem;
+  margin-right: 10px;
+}
+.sub-title{
+  padding-bottom: 3px !important;
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 1441px) {.head-icon { display: none;}}
+
+@media (min-width: 820px) {
+  #drop { display: none;}
+  .navbar.second-navbar {
+    margin-top: 80px;
+  }
+}

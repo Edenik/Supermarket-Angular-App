@@ -1,0 +1,154 @@
+<p class="breadcumb  z-depth-2 text-right">
+  <a class="breadLink" [routerLink]="['/home']">בית</a> /
+  <a class="breadLink" [routerLink]="['/admin']">אדמין</a> /
+  <a class="breadLink" [routerLink]="['/admin/control-panel']">לוח בקרה</a>
+</p>
+
+
+
+  <section class="container">
+    <!--Grid row-->
+    <div class="row flex-center">
+  
+      <!--Grid column-->
+      <div class="col-xl-3 col-md-6 mb-r click-card" (click)="navigate('/admin/users/')">
+  
+        <!--Card-->
+        <mdb-card cascade="true" class="cascading-admin-card">
+  
+          <!--Card Data-->
+          <div class="admin-up">
+            <mdb-icon fas icon="users" class="primary-color"></mdb-icon>
+            <a mdbBtn floating="true" color="success" mdbWavesEffect (click)="downloadData()"
+              mdbTooltip="Click to download Registered Users data" placement="top">
+              <i class="fas fa-download"></i>
+            </a>
+          </div>
+          <!--/.Card Data-->
+  
+          <!--Card content-->
+          <mdb-card-body class="text-center">
+            <h4><strong>משתמשים רשומים</strong></h4>
+            <h3>{{registeredUsers}}
+  
+            </h3>
+          </mdb-card-body>
+          <!--/.Card content-->
+  
+        </mdb-card>
+        <!--/.Card-->
+  
+      </div>
+      <!--Grid column-->
+  
+      <!--Grid column-->
+      <div class="col-xl-3 col-md-6 mb-r click-card" (click)="openOnlineUsersModal(onlineUsers)">
+  
+        <!--Card-->
+        <mdb-card cascade="true" class="cascading-admin-card">
+  
+          <!--Card Data-->
+          <div class="admin-up">
+            <mdb-icon fas icon="globe-europe" class="success-color"></mdb-icon>
+          </div>
+          <!--/.Card Data-->
+  
+          <!--Card content-->
+          <mdb-card-body class="text-center">
+            <h4><strong>משתמשים אונליין</strong></h4>
+            <h3>{{onlineUsers.length}}</h3>
+          </mdb-card-body>
+          <!--/.Card content-->
+  
+        </mdb-card>
+        <!--/.Card-->
+  
+      </div>
+      <!--Grid column-->
+  
+      <!--Grid column-->
+      <div class="col-xl-3 col-md-6 mb-r click-card" (click)="openSubscribersModal(subscribedUsers)">
+  
+        <!--Card-->
+        <mdb-card cascade="true" class="cascading-admin-card">
+  
+          <!--Card Data-->
+          <div class="admin-up">
+            <mdb-icon far icon="newspaper" class="pink darken-4"></mdb-icon>
+          </div>
+          <!--/.Card Data-->
+  
+          <!--Card content-->
+          <mdb-card-body class="text-center">
+            <h4><strong>משתמשים מנויים</strong></h4>
+            <h3>{{subscribedUsers.length}}</h3>
+          </mdb-card-body>
+          <!--/.Card content-->
+  
+        </mdb-card>
+        <!--/.Card-->
+  
+      </div>
+      <!--Grid column-->
+  
+    </div>
+  
+    <div class="row flex-center">
+  
+  
+      <!--Grid column-->
+      <div class="col-xl-3 col-md-6 mb-r click-card" [routerLink]="['/moderator/orders']">
+  
+        <!--Card-->
+        <mdb-card cascade="true" class="cascading-admin-card">
+  
+          <!--Card Data-->
+          <div class="admin-up">
+            <mdb-icon fas icon="hand-holding-usd" class="pink darken-4"></mdb-icon>
+          </div>
+          <!--/.Card Data-->
+  
+          <!--Card content-->
+          <mdb-card-body class="text-center">
+            <h4><strong>הכנסות שבוע אחרון</strong></h4>
+            <h3>{{incomes|currency:"ILS":"symbol"}}</h3>
+          </mdb-card-body>
+          <!--/.Card content-->
+  
+        </mdb-card>
+        <!--/.Card-->
+  
+      </div>
+      <!--Grid column-->
+  
+  
+      <!--Grid column-->
+      <div class="col-xl-3 col-md-6 mb-r click-card" [routerLink]="['/moderator/orders']">
+  
+        <!--Card-->
+        <mdb-card cascade="true" class="cascading-admin-card">
+  
+          <!--Card Data-->
+          <div class="admin-up">
+            <mdb-icon fas icon="hand-holding-usd" class="pink darken-4"></mdb-icon>
+          </div>
+          <!--/.Card Data-->
+  
+          <!--Card content-->
+          <mdb-card-body class="text-center">
+            <h4><strong>הכנסות יממה אחרונה</strong></h4>
+            <h3>{{incomesLast24Hours|currency:"ILS":"symbol"}}</h3>
+          </mdb-card-body>
+          <!--/.Card content-->
+  
+        </mdb-card>
+        <!--/.Card-->
+  
+      </div>
+      <!--Grid column-->
+  
+  
+  
+    </div>
+    <!--Grid row-->
+  </section>

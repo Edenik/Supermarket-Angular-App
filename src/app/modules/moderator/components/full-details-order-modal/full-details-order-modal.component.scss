@@ -1,0 +1,9 @@
+.details{
+    margin: 0;
+}
+
+.modal-content:not(.card-image) .close{
+    position: absolute !important;
+    left: 15px !important;
+    right:auto;
+}

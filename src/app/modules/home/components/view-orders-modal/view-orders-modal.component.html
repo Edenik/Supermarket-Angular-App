@@ -1,0 +1,50 @@
+<div class="modal-content">
+    <div class="modal-header lime accent-4" style="height: 70px;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span style="font-size: 35px;">×</span>
+        </button>
+        <h4 class="modal-title text-dark" style="position: absolute; right: 15px;">הזמנות קודמות</h4>
+    </div>
+    <div class="modal-body" style="padding-top: 10px; padding-bottom: 5px;">
+        <div class="text-right" style="margin-bottom: 10px; direction: rtl;">
+            <div class="z-depth-2" style="width: 100%; margin-bottom: 15px; padding-top: 5px; padding-right: 15px;"
+                *ngFor="let order of ordersToShow">
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">הזמנה מספר</p>
+                    <p fxFlex="50">{{order.id}} </p>
+                </div>
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">תאריך הזמנה</p>
+                    <p fxFlex="50">{{order.orderDate | date:'dd.MM.yy, HH:mm'}} </p>
+                </div>
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">סטאטוס הזמנה</p>
+                    <p fxFlex="50">{{order.orderStatus}}</p>
+                </div>
+                <div fxLayout="row">
+                    <p fxFlex="50" style="font-weight: 700;">מחיר הזמנה</p>
+                    <p fxFlex="50">{{order.originalOrderPrice - order.orderDiscount |currency:"ILS":"symbol" }}</p>
+                </div>
+                <div fxLayout="row">
+                    <!-- <p fxFlex="50" style="font-weight: 700;" class="pink-text" (click)="getAllOrderItemsById(order)">טען
+                        כרשימת קניות</p> -->
+                    <p fxFlex="100" style="font-weight: 700;" class="cursor-pointer text-center pink-text"
+                        (click)="openFullDetailsOrderModal(order)">צפייה בהזמנה</p>
+                </div>
+            </div>
+
+            <div *ngIf="loading" class="text-center">
+                <mdb-spinner spinnerType="big"></mdb-spinner>
+            </div>
+
+
+            <div class="z-depth-2" style="width: 100%; margin-bottom: 15px; padding-top: 5px;"
+                *ngIf="orders && orders.length==0 && !loading">
+                <h4 class="text-gray" style="padding-right: 15px;">עדיין לא ביצעת הזמנה :(</h4>
+                <button type="button" mdbBtn block="true" class="waves-light lime accent-3" aria-label="Close"
+                    (click)="closeModal()" mdbWavesEffect>סגור&nbsp;<i
+                        class="fas fa-times-circle text-dark"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

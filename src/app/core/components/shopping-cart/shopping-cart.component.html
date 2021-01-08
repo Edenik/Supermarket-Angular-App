@@ -1,0 +1,71 @@
+<div class="window">
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" class="lime accent-3 z-depth-2" style="height:66px">
+        <h5 *ngIf="userLogged" class="text-center text-dark cursor-pointer" mdbTooltip="צפה בהזמנות קודמות"
+            placement="bottom">
+            <i class="fas fa-file-invoice-dollar" (click)="openViewOrdersModal()"></i>
+        </h5>
+        <h5 *ngIf="!userLogged" class="text-center text-dark cursor-pointer"
+            mdbTooltip="נא להתחבר כדי לצפות בהזמנות קודמות" placement="bottom">
+            <i class="fas fa-file-invoice-dollar"></i>
+        </h5>
+        <h5 class="text-center text-dark cursor-pointer" mdbTooltip="נקה עגלת קניות" placement="bottom">
+            <i class="far fa-trash-alt" (click)="deleteAll()"></i>
+        </h5>
+        <h5 class="text-center text-dark">
+            העגלה שלך
+        </h5>
+    </div>
+
+
+
+    <div style="overflow-y: scroll; height: 85%;">
+        <app-shopping-cart-item [product]="product" *ngFor="let product of productsToShow"></app-shopping-cart-item>
+
+        <div *ngIf="loading" class="text-center">
+            <mdb-spinner spinnerType="big"></mdb-spinner>
+        </div>
+
+        <div *ngIf="!loading"  class="z-depth-1 text-center" style="position: relative; margin-top: 5px;">
+            <h5 *ngIf="!productsToShow">עגלת הקניות שלך ריקה</h5>
+        </div>
+        <div *ngIf="!loading"  class="z-depth-1 text-center" style="position: relative; margin-top: 5px;">
+            <h5 *ngIf="originalCartPrice!=totalCartPrice">{{originalCartPrice-totalCartPrice  |currency:"ILS":"symbol"}}
+                בקנייה זו חסכת</h5>
+        </div>
+    </div>
+
+    <div *ngIf="userLogged && productsToShow">
+        <button class="text-center text-white light-green darken-2 payButton right" style="width: 60%;"
+            (click)="openCreateOrderModal()">
+            <h2>לתשלום</h2>
+        </button>
+        <button class="text-center text-white light-green darken-3 payButton left" style="width: 40%;"
+            (click)="openCreateOrderModal()">
+            <h4>{{totalCartPrice |currency:"ILS":"symbol"}}</h4>
+        </button>
+    </div>
+
+    <div *ngIf="!userLogged && productsToShow">
+        <button class="text-center text-white special-color payButton right" style="width: 60%;" mdbTooltip="נא להתחבר"
+            placement="top" (click)="toast.error('נא להתחבר לפני ביצוע הזמנה')">
+            <h2>לתשלום</h2>
+        </button>
+        <button class="text-center text-white special-color-dark payButton left" style="width: 40%;"
+            mdbTooltip="נא להתחבר" placement="top" (click)="toast.error('נא להתחבר לפני ביצוע הזמנה')">
+            <h4>{{totalCartPrice |currency:"ILS":"symbol"}}</h4>
+        </button>
+    </div>
+
+    <div *ngIf="!productsToShow">
+        <button class="text-center text-white special-color payButton right" style="width: 60%;"
+            mdbTooltip="יש להוסיף מוצרים" (click)="toast.error('יש להוסיף מוצרים')">
+            <h2>לתשלום</h2>
+        </button>
+        <button class="text-center text-white special-color-dark payButton left" style="width: 40%;"
+            mdbTooltip="יש להוסיף מוצרים" (click)="toast.error('יש להוסיף מוצרים')">
+            <h4>{{totalCartPrice |currency:"ILS":"symbol"}}</h4>
+        </button>
+    </div>
+
+</div>

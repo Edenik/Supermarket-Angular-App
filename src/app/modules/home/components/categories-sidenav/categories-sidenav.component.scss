@@ -1,0 +1,11 @@
+.sideNav{
+    width: 150px; height: 100vh;  position: fixed; right: 0; top: 0; padding-top: 100px; overflow-y: scroll;
+}
+
+.active{
+  background-color:#33691e !important ;
+}
+
+
+  @media (max-width: 820px) {.sideNav { display: none;}}
+ 

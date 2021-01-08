@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.breadcumb{
+    margin-top: 0;
+    background-color: #fafafa ;
+    color: black !important;
+    padding: 15px 20px 15px 20px;
+    margin-bottom: 30px;
+  }
+  .breadLink:link{
+    text-decoration: underline !important;
+    text-underline-position: under !important;
+    color: black !important;
+  }
+  
+  .breadLink:visited {
+    text-decoration: underline !important;
+    text-underline-position: under !important;
+    color: black !important;
+  }
+
+  // @media (max-width: 767px) { .modal-content { height: 80% !important;}}
+.modal-dialog-scrollable { max-height: 80%; }
+
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

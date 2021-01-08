@@ -1,0 +1,85 @@
+<div fxLayout="row" dir="rtl" fxLayoutAlign="space-between none">
+
+    <div fxFlex="15" *ngIf="innerWidth>=820">
+        <app-categories-sidenav> </app-categories-sidenav>
+    </div>
+
+    <div fxFlex fxLayout="column">
+
+        <div class="breadcumb  z-depth-2 text-right">
+            <a class="breadLink" [routerLink]="['/home']">בית</a> /
+
+            <a *ngIf="catFromQuery== 'sale'" class="breadLink" [routerLink]="['/products', catFromQuery]">מוצרים
+                במבצע</a>
+
+            <a *ngIf="!catFromQuery && !subcatFromQuery" class="breadLink" [routerLink]="['/products', catFromQuery]">כל
+                המוצרים</a>
+
+
+            <div *ngIf="catFromQuery!= 'sale'" style="display: inline-block;">
+                <a class="breadLink" [routerLink]="['/products', catFromQuery]">{{catFromQuery}}</a>
+                <span *ngIf="subcatFromQuery"> / </span>
+                <a class="breadLink" *ngIf="subcatFromQuery"
+                    [routerLink]="['/products', catFromQuery, subcatFromQuery]">{{subcatFromQuery}}</a>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="loading" class="text-center" style="margin-top: 100px;">
+            <mdb-spinner spinnerType="big"></mdb-spinner>
+        </div>
+
+
+        <div fxFlex *ngIf="!serverError && !loading">
+
+            <div fxLayout="row" dir="rtl" fxLayoutAlign="space-evenly none" style="margin-bottom: 30px;">
+
+                <div class="filter" fxFlex="40" *ngIf="!subcatFromQuery">
+                    <mdb-select-2 [multiple]="true" placeholder="בחר קטגוריה" label="סינון מוצרים"
+                        (ngModelChange)="filterBySubcategories($event)" [ngModel]="selectedValue"
+                        style="max-width:380px !important">
+                        <mdb-select-all-option>בחר הכל</mdb-select-all-option>
+                        <mdb-select-option *ngFor="let option of subcategories" [value]="option.name">{{ option.name }}
+                        </mdb-select-option>
+                    </mdb-select-2>
+                </div>
+
+                <div class="dropdown" mdbDropdown>
+
+                    <button mdbDropdownToggle mdbBtn class="dropdown-toggle waves-light" type="button" mdbWavesEffect>
+                        <i class="fas fa-sort-amount-up-alt"></i>
+                        מיון
+                    </button>
+
+                    <div class="dropdown-menu  lime accent-3 text-right">
+                        <a class="dropdown-item" (click)="sort('plus', 'price')"><i class="fas fa-arrow-up"></i>&nbsp;
+                            מחיר מהנמוך לגבוה</a>
+                        <a class="dropdown-item" (click)="sort('minus' , 'price')"><i
+                                class="fas fa-arrow-down"></i>&nbsp; מחיר מהגבוה לנמוך</a>
+                        <a class="dropdown-item" (click)="sort('plus' , 'name')"><i class="fas fa-arrow-up"></i>&nbsp;
+                            שם המוצר בסדר עולה</a>
+                        <a class="dropdown-item" (click)="sort('minus' , 'name')"><i
+                                class="fas fa-arrow-down"></i>&nbsp; שם המוצר בסדר יורד</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="productsToShow" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+                <app-product [product]="product" *ngFor="let product of productsToShow"></app-product>
+                <h2 *ngIf="!(productsToShow.length>0)" class="text-center" style="margin-top: 50px; font-weight: 700;">
+                    אין מוצרים</h2>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="serverError">
+            <h2 class="text-center" style="margin-top: 50px; font-weight: 700;">אין גישה לשרת</h2>
+        </div>
+
+    </div>
+
+
+</div>

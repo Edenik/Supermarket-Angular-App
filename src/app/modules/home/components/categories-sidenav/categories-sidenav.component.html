@@ -1,0 +1,47 @@
+<div class="light-green accent-2 sideNav">
+    <links *ngIf="reqComplete">
+        <!-- Side navigation links -->
+        <!-- <li> -->
+        <ul class="collapsible collapsible-accordion light-green accent-2" style="padding-right: 0;">
+            <mdb-accordion [multiple]="false" aria-multiselectable="false">
+
+                <a class="dropdown-item waves-light text-center  light-green accent-2" mdbWavesEffect
+                    [routerLink]="['/products/sale']"  style="border-bottom: 2px solid #33691e;">
+                    <h5 style="font-weight: 500;">
+                        <i class="fas fa-percent"></i>
+                        מבצעים
+                    </h5>
+                </a>
+
+                <!-- Collapsible link -->
+                <mdb-accordion-item *ngFor="let item of categories">
+                    <mdb-accordion-item-head [indicator]="false" mdbWavesEffect style="border-bottom: 2px solid #33691e;"
+                        [customClass]="'text-center light-green accent-2'">
+                        <span class="text-dark" style="font-weight: 500;">{{item.name}}</span>
+                    </mdb-accordion-item-head>
+
+                    <mdb-accordion-item-body [customClass]="'light-green accent-1'">
+                        <ul style="padding-right: 10px !important;">
+                            <li class="text-right" style="list-style: none;"><a [routerLink]="['/products/', item.name]"
+                                    mdbWavesEffect style="font-size: 20px; font-weight: 500;" class="text-dark">הכל</a>
+                                <hr style="margin: 5px 0 5px 0; height: 3px;">
+                            </li>
+                            <li *ngFor="let subcat of getSubcategoryByCategory(item.id)" class="text-right"
+                                style="list-style: none;"><a [routerLink]="['/products/',item.name, subcat.name]"
+                                    mdbWavesEffect style="font-size: 20px; font-weight: 400;"
+                                    class="text-dark">{{subcat.name}}</a>
+                                <hr style="margin: 5px 0 5px 0; height: 3px;">
+                            </li>
+                        </ul>
+                    </mdb-accordion-item-body>
+                </mdb-accordion-item>
+
+
+
+
+            </mdb-accordion>
+        </ul>
+        <!-- </li> -->
+        <!--/. Side navigation links -->
+    </links>
+</div>

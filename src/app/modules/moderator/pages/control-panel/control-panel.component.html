@@ -1,0 +1,141 @@
+<p class="breadcumb z-depth-2 text-right">
+    <a class="breadLink" [routerLink]="['/home']">בית</a> /
+    <a class="breadLink" [routerLink]="['/moderator']">עורך תוכן</a> /
+    <a class="breadLink" [routerLink]="['/moderator']">לוח בקרה</a>
+</p>
+
+
+<section class="container">
+
+    <!--Grid row-->
+    <div class="row flex-center">
+
+        <!--Grid column-->
+        <div class="col-xl-3 col-md-6 mb-r click-card" (click)="navigate('/moderator/orders/')">
+
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="file-invoice-dollar" class="primary-color"></mdb-icon>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <mdb-card-body class="text-center">
+                    <h4><strong>הזמנות</strong></h4>
+                    <h3>{{orders.length}}</h3>
+                </mdb-card-body>
+                <!--/.Card content-->
+
+            </mdb-card>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-xl-3 col-md-6 mb-r click-card" (click)="navigate('/moderator/products/')">
+
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="hamburger" class="warning-color"></mdb-icon>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <mdb-card-body class="text-center">
+                    <h4><strong>מוצרים</strong></h4>
+                    <h3>{{products.length}}</h3>
+                </mdb-card-body>
+                <!--/.Card content-->
+
+            </mdb-card>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-xl-3 col-md-6 mb-r click-card" (click)="navigate('/moderator/products/')">
+
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="dollar-sign" class="success-color"></mdb-icon>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <mdb-card-body class="text-center">
+                    <h4><strong>מוצרים במבצע</strong></h4>
+                    <h3>{{saleProducts.length}}</h3>
+                </mdb-card-body>
+                <!--/.Card content-->
+
+            </mdb-card>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-xl-3 col-md-6 mb-r click-card" (click)="navigate('/moderator/categories/')">
+
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="bars" class="pink darken-4"></mdb-icon>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <mdb-card-body class="text-center">
+                    <h4><strong>קטגוריות</strong></h4>
+                    <h3>{{categories.length}}</h3>
+                </mdb-card-body>
+                <!--/.Card content-->
+
+            </mdb-card>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-xl-3 col-md-6 mb-r click-card" (click)="navigate('/moderator/subcategories/')">
+
+            <!--Card-->
+            <mdb-card cascade="true" class="cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="align-left" class="red accent-2"></mdb-icon>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <mdb-card-body class="text-center">
+                    <h4><strong>תת-קטגוריות</strong></h4>
+                    <h3>{{subcategories.length}}</h3>
+                </mdb-card-body>
+                <!--/.Card content-->
+
+            </mdb-card>
+            <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+</section>

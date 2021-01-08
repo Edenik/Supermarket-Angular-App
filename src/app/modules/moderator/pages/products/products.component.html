@@ -1,0 +1,61 @@
+<p class="breadcumb z-depth-2 text-right">
+    <a class="breadLink" [routerLink]="['/home']">בית</a> /
+    <a class="breadLink" [routerLink]="['/moderator']">עורך תוכן</a> /
+    <a class="breadLink" [routerLink]="['/moderator/products']">מוצרים</a>
+</p>
+
+<div class="text-center" style="margin-bottom: 10px;">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button mdbBtn type="button" rounded="true" class="waves-light green darken-4 text-white" mdbWavesEffect
+            (click)="changeView('table')" [ngClass]="{'text-dark':viewType=='cards'}">מצב טבלה&nbsp;<i
+                class="fas fa-table"></i></button>
+        <button mdbBtn type="button" rounded="true" class="waves-light green darken-4 text-white" mdbWavesEffect
+            (click)="changeView('cards')" [ngClass]="{'text-dark':viewType=='table'}">מצב כרטיסים&nbsp;<i
+                class="fas fa-columns"></i></button>
+    </div>
+</div>
+
+<div class="text-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button mdbBtn type="button" color="light-green" rounded="true" class="waves-light" mdbWavesEffect
+            (click)="downloadProductsData()">הורד
+            נתונים&nbsp;<i class="fas fa-download"></i></button>
+
+        <label mdbBtn for="upload" color="light-green" rounded="true" mdbWavesEffect>
+            ייבא נתונים &nbsp;
+            <i class="fas fa-upload"></i>
+            <input type="file" id="upload" (change)="uploadJson($event)" style="display:none">
+        </label>
+
+        <button mdbBtn type="button" color="light-green" rounded="true" class="waves-light" mdbWavesEffect
+            (click)="openModal('addProduct')">הוסף מוצר&nbsp;<i class="fas fa-plus"></i></button>
+    </div>
+</div>
+
+<!-- <input mdbBtn  type="file" color="light-green" rounded="true" mdbWavesEffect
+            (change)="uploadJson($event)" style="padding: 10px; width: 200px;"> -->
+
+
+<app-products-table [products]="products" [searchQuery]="searchQuery" (delete)="deleteProduct($event)"
+    *ngIf="reqComplete && viewType=='table'">
+</app-products-table>
+
+
+<div class="table-responsive" *ngIf="viewType=='cards'" style="margin-top: 30px;">
+    <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1 mx-auto"
+        style="width: fit-content;">
+        <thead class="sticky-top">
+            <tr>
+                <th *ngFor="let head of headElements; let i = index" scope="col">{{head.display }} <mdb-icon fas
+                        icon="arrow-up" (click)="sort(head.value, 'plus')" style="margin-right: 3px;"></mdb-icon>
+                    <mdb-icon fas icon="arrow-down" (click)="sort(head.value, 'minus')"></mdb-icon>
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="space-evenly center" *ngIf="viewType=='cards'">
+    <app-product-card [product]="product" (delete)="deleteProduct($event)" *ngFor="let product of products">
+    </app-product-card>
+</div>

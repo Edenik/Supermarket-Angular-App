@@ -1,0 +1,19 @@
+<p class="breadcumb z-depth-2 text-right">
+    <a class="breadLink" [routerLink]="['/home']">בית</a> /
+    <a class="breadLink" [routerLink]="['/moderator']">עורך תוכן</a> /
+    <a class="breadLink" [routerLink]="['/moderator/orders']">הזמנות</a>
+</p>
+
+
+
+
+<div class="text-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button mdbBtn type="button" color="light-green" rounded="true" class="waves-light" mdbWavesEffect
+            (click)="downloadOrdersData()">הורד
+            נתונים&nbsp;<i class="fas fa-download"></i></button>
+    </div>
+</div>
+
+
+<app-orders-table *ngIf="reqComplete" [orders]="orders" [searchUID]="searchUID"></app-orders-table>

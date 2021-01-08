@@ -1,0 +1,74 @@
+<p class="container breadcumb z-depth-2 text-right" style="margin-top: 90px;">
+  <a class="breadLink" [routerLink]="['/home']">בית</a> /
+  <a class="breadLink" [routerLink]="['/auth/profile']">פרופיל</a>
+</p>
+
+
+
+<!--Grid row-->
+<div class="flex-center container">
+
+
+  <!--Grid column-->
+  <div class="col-md-6">
+
+    <!--Card-->
+    <mdb-card class="testimonial-card z-depth-2" *ngIf="afAuth.user | async as AfUser;">
+      <!--Bacground color-->
+      <div class="card-up light-green darken-1" style="height: 75px;">
+      </div>
+
+      <!--Avatar-->
+      <div class="avatar mx-auto">
+        <img class="rounded-circle img-fluid" *ngIf="AfUser.photoURL" src="{{AfUser.photoURL}}" alt="User image"
+          style="height: 110px; width: 110px;">
+        <img class="card-img-top image" *ngIf="!AfUser.photoURL"
+          src="https://d1bvpoagx8hqbg.cloudfront.net/259/4ea4217efbbf179e02269b065d23a60e.jpg" alt="User image">
+      </div>
+
+
+      <div class="card-body">
+        <mdb-card-title>
+          <h4>{{AfUser.displayName}}</h4>
+          <h4 *ngIf="!AfUser.displayName">שלום משתמש חדש, אנא עדכן את שמך!</h4>
+          <p>Provider: <span
+              style="text-transform: capitalize;">{{AfUser.providerData[0].providerId!='password' ? AfUser.providerData[0].providerId : 'Email & Password' }}</span>
+          </p>
+          <p *ngIf="AfUser.providerData[0].providerId=='phone'">{{AfUser.phoneNumber}} :מספר פלאפון</p>
+
+          <p *ngIf="userFromDatabase" style="direction: rtl;">ניוזלטר:
+            <button *ngIf="userFromDatabase.subscribeToNews==true" (click)="updateSubscribe(false)" mdbBtn type="button"
+              color="success" size="sm" mdbWavesEffect><i class="fas fa-newspaper"></i>&nbsp;בטל את המנוי</button>
+            <button *ngIf="userFromDatabase.subscribeToNews==false" (click)="updateSubscribe(true)" mdbBtn type="button"
+              color="danger" size="sm" mdbWavesEffect><i class="fas fa-newspaper"></i>&nbsp;הירשם למנוי</button>
+          </p>
+        </mdb-card-title>
+        <hr>
+        <form [formGroup]="profileForm" *ngIf="userFromDatabase">
+          <div *ngIf="userFromDatabase.providerId=='password'" class="form-group">
+            <label>Email:</label>
+            <input value="{{userFromDatabase.email}}" type="text" class="form-control" disabled>
+          </div>
+          <div class="form-group">
+            <label>:שם תצוגה</label>
+            <input type="text" formControlName="name" class="form-control" style="text-align: right;" required>
+          </div>
+          <div class="form-group">
+            <label>Photo URL:</label>
+            <input type="text" formControlName="photoURL" class="form-control">
+          </div>
+          <p *ngIf="error">{{error}}</p>
+        </form>
+        <button (click)="updateSubscribe(false)" (click)="save(profileForm.value)" mdbBtn type="button" color="success"
+          size="sm" mdbWavesEffect [disabled]="!profileForm.valid">שמור&nbsp;<i class="fas fa-save"></i></button>
+        <button *ngIf="AfUser.providerData[0].providerId=='password'" (click)="resetPassword()" mdbBtn type="button"
+          color="danger" size="sm" mdbWavesEffect>אפס את הסיסמה&nbsp;<i class="fas fa-minus-circle"></i></button>
+      </div>
+    </mdb-card>
+    <!--/.Card-->
+
+  </div>
+  <!--Grid column-->
+
+</div>
+<!--Grid row-->
